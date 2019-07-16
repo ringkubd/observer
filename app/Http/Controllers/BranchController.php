@@ -26,7 +26,6 @@ class BranchController extends Controller
      */
     public function index()
     {
-
         $parentBranch = $this->makeParentBranchOption();
         $allbranch = Branch::active()->with('parent')->get();
         $model = new Branch();
@@ -117,16 +116,16 @@ class BranchController extends Controller
      */
     public function destroy($id)
     {
-        Branch::find($id)->destroy();
+        Branch::find($id)->delete();
         $this->deleteCache();
         return back();
     }
 
     private function makeParentBranchOption($selected = null){
-        $parentBranch = new Branch("where is_grand_child = 0",true);
+        $parentBranch = new Branch();
+        $parentBranch->setParam("where is_grand_child = 0",true);
         $branches = $parentBranch->getFromRedis();
         $option = null;
-
 
         foreach ($branches as $b){
             $select = $selected == $b->id ? "selected" : null;

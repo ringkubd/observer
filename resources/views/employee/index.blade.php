@@ -29,12 +29,11 @@
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body">
-                        <form action="{{url('client')}}" method="post" class="">
+                        <form action="{{url('employee')}}" method="post" class="">
                         @include('client.form')
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary mt-2 mt-sm-0">Add</button>
                             </div>
-
                         </form>
                     </div>
                 </div>

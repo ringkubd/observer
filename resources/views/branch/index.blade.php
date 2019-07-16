@@ -9,7 +9,7 @@
                         <form action="{{url('branch')}}" method="post" class="">
                         @include('branch.form')
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary mt-2 mt-sm-0">Update</button>
+                                <button type="submit" class="btn btn-primary mt-2 mt-sm-0">Add</button>
                             </div>
 
                         </form>

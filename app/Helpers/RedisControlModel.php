@@ -14,20 +14,19 @@ class RedisControlModel extends Model
     private $destroyCache;
     private $querySelect;
     private $redisQuery;
-
+    protected $queryId;
+    private $queryTable;
 
     /**
-     * RedisControlModel constructor.
-     * @param $keys
      * @param string $query
      * @param bool $destroy
      * @param string $select
      */
 
-    public function __construct($query = "",$destroy = false,$select = "*")
+    public function setParam($query = "",$table = null,$destroy = false,$select = "*")
     {
-        parent::__construct();
-        $this->rediskeys = env("APP_NAME")."_".$this->table;
+        $this->queryTable = $table ?? $this->table;
+        $this->rediskeys = env("APP_NAME")."_".$this->table."_".get_called_class().$this->queryId;
         $this->dataQuery = $query;
         $this->destroyCache = $destroy;
         $this->querySelect = $select;
@@ -41,9 +40,10 @@ class RedisControlModel extends Model
      */
 
     public function compailedQuery($query){
-        $queryKeys = $this->rediskeys."_query";
+        $table = $this->queryTable ?? $this->table;
+        $queryKeys = env("APP_NAME")."_".$this->table."_query_".get_called_class().$this->queryId;
         $q = $this->redisQuery($query);
-        return json_encode(DB::select(DB::raw("SELECT * FROM $this->table $this->redisQuery")));
+        return json_encode(DB::select(DB::raw("SELECT * FROM $table $this->redisQuery")));
 
     }
 
@@ -53,13 +53,10 @@ class RedisControlModel extends Model
      */
 
     private function redisQuery($query){
-        $queryKeys = $this->rediskeys."_query";
-
+        $queryKeys = env("APP_NAME")."_".$this->table."_query_".get_called_class().$this->queryId;
         if (Redis::exists($queryKeys) && Redis::get($queryKeys) == $query){
-
             $this->redisQuery = Redis::get($queryKeys);
             return $this;
-
         }else{
             Redis::set($queryKeys,$query);
             $this->redisQuery = Redis::get($queryKeys);
@@ -72,8 +69,7 @@ class RedisControlModel extends Model
      */
 
     public function getFromDB(){
-        $rediskeys = $this->rediskeys;
-
+        $rediskeys = env("APP_NAME")."_".$this->table."_".get_called_class().$this->queryId;
         if (!Redis::exists($rediskeys) || $this->destroyCache) {
             $data = $this->compailedQuery($this->dataQuery);
             $storeInCache = Redis::set("$rediskeys",$data);
@@ -89,7 +85,7 @@ class RedisControlModel extends Model
      * @return boolean;
      */
     public function updateOnChange(){
-        $rediskeys = $this->rediskeys;
+        $rediskeys = env("APP_NAME")."_".$this->table."_".get_called_class().$this->queryId;
         return Redis::del($rediskeys);
     }
 
@@ -100,6 +96,7 @@ class RedisControlModel extends Model
      */
 
     public function getFromRedis(){
+        $rediskeys = env("APP_NAME")."_".$this->table."_".get_called_class().$this->queryId;
         $data = $this->getFromDB();
         return json_decode($data);
     }
