@@ -18,10 +18,10 @@ class RedirectIfAuthenticatedAndAccess
     public function handle($request, Closure $next, $guard = null)
     {
         $permission = config("permission");
-        if (Auth::check() && Auth::user()->{$permission[$guard]} == '1') {
-            return true;
+        if (Auth::check() && Auth::user()->{$permission[$guard]}) {
+            return $next($request);
         }
 
-        return $next($request);
+        return abort(202,__("You dont have access"));
     }
 }

@@ -35,4 +35,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function branch(){
+        return $this->belongsToMany("App\Branch",'user_branches');
+    }
+
 }

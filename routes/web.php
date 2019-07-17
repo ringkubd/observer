@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource("client","ClientController")->middleware("auth");
+Route::resource("client","ClientController")->middleware("haveAccess:client");
 Route::resource("branch","BranchController")->middleware("haveAccess:branch");
 
-Route::get("/employee","EmployeeController@index");
+Route::resource("/employee","EmployeeController")->middleware("haveAccess:employee");

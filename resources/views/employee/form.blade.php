@@ -1,24 +1,23 @@
 
     {{csrf_field()}}
     <div class="form-group">
-        <label class="mr-sm-2 mb-0" for="branch_name">
-            Client Name
+        <label class="mr-sm-2 mb-0" for="name">
+            Name
         </label>
-        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" id="client_name" name="client_name" value="{{$model->client_name}}">
+        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" id="name" name="name" value="{{$model->name}}">
     </div>
     <div class="form-group">
-        <label class="mr-sm-2 mb-0" for="contact_person">Contact Person</label>
-        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" id="contact_person" name="contact_person" value="{{$model->contact_person}}">
+        <label class="mr-sm-2 mb-0" for="email">Email</label>
+        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" id="email" name="email" value="{{$model->email}}">
     </div>
-
     <div class="form-group">
-        <label class="mr-sm-2 mb-0" for="mobile_no">Mobile</label>
-        <input type="text" class="form-control mr-sm-2 mb-2 mb-sm-0" id="mobile_no" name="mobile_no"  value="{{$model->mobile_no}}">
+        <label class="mr-sm-2 mb-0" for="password">Password</label>
+        <input type="password" class="form-control mr-sm-2 mb-2 mb-sm-0" id="password" name="password"  value="">
     </div>
     <div class="form-group">
         <label class="mr-sm-2 mb-0" for="branch_id">Branch</label>
-        <select class="form-control mr-sm-2 mb-2 mb-sm-0" name="branch_id" id="branch_id">
-            <option value="">Select a branch</option>
+        <select  class="form-control mr-sm-2 mb-2 mb-sm-0 select2" name="branch_id[]" id="branch_id"  multiple="multiple">
+            <option value="0">Select a branch</option>
             {!! $branch !!}
         </select>
     </div>
@@ -30,5 +29,20 @@
         <label class="mr-sm-2 mb-0" for="code_converter">Code Converter</label>
         <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="code_converter" name="code_converter" @if($model->code_converter) checked @endif  value="1">
     </div>
-
+    <div class="form-group">
+        <label class="mr-sm-2 mb-0" for="employee_access">Employee Access</label>
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="employee_access" name="employee_access" @if($model->employee_access) checked @endif  value="1">
+    </div>
+    <div class="form-group">
+        <label class="mr-sm-2 mb-0" for="branch_access">Branch Access</label>
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="branch_access" name="branch_access" @if($model->branch_access) checked @endif  value="1">
+    </div>
+    <div class="form-group">
+        <label class="mr-sm-2 mb-0" for="client_access">Client Access</label>
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="client_access" name="client_access" @if($model->client_access) checked @endif  value="1">
+    </div>
+    <div class="form-group">
+        <label class="mr-sm-2 mb-0" for="observer_man_access">Observer Management Access</label>
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="observer_man_access" name="observer_man_access" @if($model->observer_man_access) checked @endif  value="1">
+    </div>
 
