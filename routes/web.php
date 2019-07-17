@@ -18,5 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::resource("client","ClientController");
-Route::resource("branch","BranchController");
+Route::resource("client","ClientController")->middleware("auth");
+Route::resource("branch","BranchController")->middleware("haveAccess:branch");
+
+Route::get("/employee","EmployeeController@index");

@@ -105,11 +105,10 @@ class ClientController extends Controller
     }
 
     private function makeBranchOption($selected = null){
-        $parentBranch = new Branch("where isdelete = 0",true);
+        $parentBranch = new Branch();
+        $parentBranch->setParam("where isdelete = 0");
         $branches = $parentBranch->getFromRedis();
         $option = null;
-
-
         foreach ($branches as $b){
             $select = $selected == $b->id ? "selected" : null;
             $option.= "<option $select value='{$b->id}'>{$b->branch_name}</option>";
