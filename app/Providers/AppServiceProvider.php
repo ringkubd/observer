@@ -26,12 +26,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-       if(auth()->check()){
+
         View::composer('layouts.app',function ($view){
             $branchArray = Auth::user()->branch->pluck("id")->toArray();
             $branch = Branch::whereIn("id",$branchArray)->whereIsdelete("0")->get();
             $view->with("branch",$branch);
         });
-       } 
+
     }
 }
