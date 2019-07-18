@@ -40,4 +40,8 @@ class Client extends RedisControlModel
 
     }
 
+    public function branch(){
+        return $this->hasOne(Branch::class,"id","branch_id");
+    }
+
 }

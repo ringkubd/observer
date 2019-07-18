@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Branch;
 use App\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
 
 class ClientController extends Controller
@@ -17,7 +18,8 @@ class ClientController extends Controller
     public function index()
     {
         $model = new Client();
-        $data = $model->getFromRedis();
+        $userBranch = where_branch_id();
+        $data = Client::with("branch")->{$userBranch[0]}("branch_id",$userBranch[1])->get();
         $branch = $this->makeBranchOption();
         return view("client.index",compact('model','data','branch'));
     }

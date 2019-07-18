@@ -23,10 +23,6 @@
                     <tr>
                         <th>Name</th>
                         <th>Parent</th>
-                        <th>Email</th>
-                        <th>Mobile</th>
-                        <th>Address</th>
-                        <th>Emergency Mobile</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -35,10 +31,6 @@
                         <tr>
                             <td>{{$b->branch_name ?? null}}</td>
                             <td>{{$b->parent->branch_name ?? null}}</td>
-                            <td>{{$b->email ?? null}}</td>
-                            <td>{{$b->mobile ?? null}}</td>
-                            <td>{{$b->address ?? null}}</td>
-                            <td>{{$b->emergency_mobile ?? null}}</td>
                             <td>
                                 <a href="{{url("branch/$b->id/edit")}}" class="btn btn-sm">Edit</a>||
                                 <form action="{{url("branch/$b->id")}}" method="post">

@@ -27,19 +27,19 @@
     </div>
     <div class="form-group">
         <label class="mr-sm-2 mb-0" for="code_converter">Code Converter</label>
-        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="code_converter" name="code_converter" @if($model->code_converter) checked @endif  value="1">
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="code_converter" name="code_converter" @if($model->code_converter ==1) checked @endif  value="1">
     </div>
     <div class="form-group">
         <label class="mr-sm-2 mb-0" for="employee_access">Employee Access</label>
-        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="employee_access" name="employee_access" @if($model->employee_access) checked @endif  value="1">
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="employee_access" name="employee_access" @if($model->employee_access ==1) checked @endif  value="1">
     </div>
     <div class="form-group">
         <label class="mr-sm-2 mb-0" for="branch_access">Branch Access</label>
-        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="branch_access" name="branch_access" @if($model->branch_access) checked @endif  value="1">
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="branch_access" name="branch_access" @if($model->branch_access ==1) checked @endif  value="1">
     </div>
     <div class="form-group">
         <label class="mr-sm-2 mb-0" for="client_access">Client Access</label>
-        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="client_access" name="client_access" @if($model->client_access) checked @endif  value="1">
+        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="client_access" name="client_access" @if($model->client_access ==1) checked @endif  value="1">
     </div>
     <div class="form-group">
         <label class="mr-sm-2 mb-0" for="observer_man_access">Observer Management Access</label>

@@ -45,11 +45,9 @@
                     <thead>
                     <tr>
                         <th>Client Name</th>
-                        <th>Parent</th>
-                        <th>Contact Person</th>
-                        <th>Mobile</th>
                         <th>Branch</th>
-                        <th>Emergency Mobile</th>
+                        <th>Code</th>
+                        <th>Code Converter</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -57,11 +55,9 @@
                     @forelse($data as $b)
                         <tr>
                             <td>{{$b->client_name ?? null}}</td>
-                            <td>{{$b->contact_person?? null}}</td>
-                            <td>{{$b->mobile_no ?? null}}</td>
                             <td>{{$b->branch->branch_name ?? null}}</td>
                             <td>{{$b->code ?? null}}</td>
-                            <td>{{$b->code_converter ?? null}}</td>
+                            <td>{{$b->code_converter  ?? null == 1 ? "Yes" : "No"}}</td>
                             <td>
                                 <a href="{{url("client/$b->id/edit")}}" class="btn btn-sm">Edit</a>||
                                 <form action="{{url("client/$b->id")}}" method="post">

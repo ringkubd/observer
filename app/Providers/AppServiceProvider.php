@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Branch;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+        View::composer('layouts.app',function ($view){
+            $branchArray = Auth::user()->branch->pluck("id")->toArray();
+            $branch = Branch::whereIn("id",$branchArray)->whereIsdelete("0")->get();
+            $view->with("branch",$branch);
+        });
     }
 }
