@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
         <label class="mr-sm-2 mb-0" for="code_converter">Code Converter</label>
-        <input type="checkbox" class="form-control mr-sm-2 mb-2 mb-sm-0" id="code_converter" name="code_converter" @if($model->code_converter) checked @endif  value="1">
+        <input type="checkbox" class="form-control" id="code_converter" name="code_converter" @if($model->code_converter) checked @endif  value="1">
     </div>
 
 

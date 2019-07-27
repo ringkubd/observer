@@ -1,73 +1,70 @@
-@extends('layouts.applog')
+@section('title','DIGIPLAN')
 
+@extends('layouts.login')
+
+@section('style')
+
+    <link rel="stylesheet" href="{{asset('assets/css/create_account.css')}}">
+
+      <style>
+      .main-content-area {padding: 30px;}input[type="checkbox"] + label {width: 30px;height: 30px;border: 5px solid #f5f5f5;border-radius: 100%;top: 50%;left: 10%;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);-webkit-transition: all ease-out 200ms;transition: all ease-out 200ms;text-indent: 40px;white-space: nowrap;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;margin: 20px 0 0 15px;}input[type="checkbox"] + label:after {content: "";position: absolute;width: 0px;height: 10px;border-bottom: 5px solid #22b573;border-left: 5px solid #22b573;top: 25%;left: 50%;-webkit-transform-origin: bottom left;transform-origin: bottom left;-webkit-transform: rotate(-45deg);transform: rotate(-45deg);opacity: 0;-webkit-transition: all ease-out 200ms;transition: all ease-out 200ms;}
+      input[type="checkbox"]:checked + label {border: 5px solid #22b573;}
+      input[type="checkbox"]:checked + label:after {opacity: 1;width: 30px;}
+      #chk, #chk_2 {display: none;}
+      input.account-submit-btn {padding: 5px 20px;}
+      input.account-submit-btn {padding: 5px 20px;}
+      .dropdown-menu {top: -50%;}
+      .dropdown-menu li a {cursor: pointer;}
+      .bankid-form-container, .opt-form-container, .login_btn_hide, .hide_verify_input {display: none;}
+
+</style>
+@endsection
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+<section class="slider-area">
+      <div class="container">
+            <div class="content-wrapper">
+                  <h3>LOGGA IN</h3>
+                  <div class="main-content-area">
+                        @if (Session()->has('message'))
+                              <div class="alert alert-info">{{ Session()->get('message') }}</div>
+                        @endif
+                        <div class="password-form-container">
+                              <form class="form-horizontal" method="POST" action="{{ route('login') }}" id="login_form">
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                          <label for="email">E-post adress</label>
+                                          <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                          @if ($errors->has('email'))
+                                                <span class="help-block">
+                                                      <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                          @endif
+                                    </div>
+                                    <div class="form-group">
+                                          <label for="password">Lösenord</label>
+                                          <input id="password" type="password" class="form-control" name="password" required>
+                                          @if ($errors->has('password'))
+                                                <span class="help-block">
+                                                      <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
+                                          @endif
+                                    </div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                                    <div class="form-group">
+                                          <label class="checkbox-inline">
+                                                <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>  Kom ihåg mig
+                                          </label>
+                                          <label class="checkbox-inline pull-right hide-bid">
+                                                <a style="color:white" class="btn btn-link" href="{{ route('password.request')}}">Glömt ditt lösenord??</a>
+                                          </label>
+                                    </div>
+                                    <div class="submit-btn-area">
+                                          <input type="submit" id="login_btn" class="account-submit-btn" value="Logga in" />
+                                    </div>
+                              </form>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                  </div>
             </div>
-        </div>
-    </div>
-</div>
+      </div>
+</section>
 @endsection
